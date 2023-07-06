@@ -13,10 +13,11 @@ public class Entity
     
     public char symbol;
 
-    private char[,] currentMap;
+    private Map currentMap;
     private List<char> wallChars;
+    private List<char> walkableChars;
     
-    public Entity(int x, int y, char symbol, char[,] map, List<char> wallChars)
+    public Entity(int x, int y, char symbol, Map map, List<char> wallChars, List<char> walkableChars)
     {
         this.x = x;
         this.y = y;
@@ -25,6 +26,7 @@ public class Entity
         
         currentMap = map;
         this.wallChars = wallChars;
+        this.walkableChars = walkableChars;
     }
     
     // This function will be called in the update loop during the game loop.
@@ -35,11 +37,12 @@ public class Entity
         dirY = 0;
     }
 
-    // Check if the direction the entity is attempting to go in isn't a wallChar.
-    public bool IsObstructed()
+    // Check if the direction the entity is attempting to go in is a walkable character.
+    protected bool IsWalkable()
     {
-        if (currentMap == null || wallChars == null) { throw new UnsetValueException("currentMap or wallChars is null."); }
-        return wallChars.Contains(currentMap[y + dirY, x + dirX]);
+        if (currentMap?.areaMap == null || walkableChars == null) { throw new UnsetValueException("currentMap or wallChars is null."); }
+        Console.Write(currentMap.areaMap[y + dirY, x + dirX]);
+        return walkableChars.Contains(currentMap.areaMap[y + dirY, x + dirX]);
     }
     
     public Position GetPosition()
