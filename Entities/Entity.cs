@@ -1,5 +1,4 @@
 ﻿using Glyph_Game_Engine.Utilities;
-using Glyph_Game_Engine.Exceptions;
 
 namespace Glyph_Game_Engine.Entities;
 
